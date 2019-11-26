@@ -50,27 +50,29 @@ public class DAOTest<T> implements Serializable{
     }
 
     //Testando NullPointerException no metodo adicionar()
-    @Test(expected = NullPointerException.class)
-    public void testAdicionarNullEx() {
-        System.out.println("DAO - Method: adicionar()");
-      
-        DAO<T> dao = null;
-        
-        dao.adicionar(null);
-              
-    }
-    
-    //Testando se aceita um Objeto qualquer.
     @Test
-    public void testAdicionarObject() {
-        System.out.println("DAO - Method: adicionar()");
+    public void testAdicionar() {
+        System.out.println("DAOTest - Method: adicionar()");
       
         DAO<T> dao = null;
         
-        Object t = new Object();
-        
+        //O metodo nao deve aceitar valor 'null'(teste basico).
         try
         {
+            dao.adicionar(null);
+            assertTrue(false);
+            System.err.println("Erro: metodo aceitou valor 'null' como parametro");
+            
+        }catch(NullPointerException e)
+        {
+            assertTrue(true);
+        }
+        
+        //Eh esperado que o metodo nao aceite um Object vazio.
+        try
+        {
+            Object t = new Object();
+            
             dao.adicionar((T) t);
             assertTrue(false);
             System.err.println("Erro: foi adicionado um Object vazio!");
@@ -78,16 +80,18 @@ public class DAOTest<T> implements Serializable{
         {
             assertTrue(true);
         }
-        
               
     }
-
+    
 
     @Test
-    public void testConsultarNull() {
+    public void testConsultar() 
+    {
         System.out.println("DAOTest: Method - consultar()");
         Long id = null;
         DAO instance = null;
+        
+        //O metodo nao deve aceitar valor 'null'(teste basico).
         try
         {
             instance.consultar(id);
@@ -98,51 +102,150 @@ public class DAOTest<T> implements Serializable{
             assertTrue(true);
         }
         
+        
+        //Esperado que o metodo nao aceite valores negativos como 'id'
+         try
+        {
+            id = -1l;
+            
+            instance.consultar(id);
+            assertTrue(false);
+            System.err.println("\nErro: metodo aceitando valor negativo de 'id'");
+        }catch(NullPointerException e)
+        {
+            assertTrue(true);
+        }
+        
     }
 
-    /**
-     * Test of alterar method, of class DAO.
-     */
-    @Ignore
+ 
     @Test
-    public void testAlterar() {
-        System.out.println("alterar");
-        Object t = null;
-        DAO instance = null;
-        instance.alterar(t);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testAlterar() 
+    {
+        System.out.println("DAOTest: Method - alterar()");
+        
+        DAO dao = null;
+        
+        //O metodo nao deve aceitar valor 'null'(teste basico).
+        try
+        {
+            dao.alterar(null);
+            assertTrue(false);
+            System.err.println("Erro: metodo aceitou valor 'null' como parametro");
+            
+        }catch(NullPointerException e)
+        {
+            assertTrue(true);
+        }
+        
+        //Eh esperado que o metodo nao aceite um Object vazio.
+        try
+        {
+            Object t = new Object();
+            
+            dao.alterar((T) t);
+            assertTrue(false);
+            System.err.println("\nErro: foi adicionado um Object vazio!");
+        }catch(Exception e)
+        {
+            assertTrue(true);
+        }
     }
 
-    /**
-     * Test of excluir method, of class DAO.
-     */
-    @Ignore
+  
     @Test
-    public void testExcluir() {
-        System.out.println("excluir");
+    public void testExcluir() 
+    {
+        System.out.println("DAOTest: Method - excluir()");
         Long id = null;
-        DAO instance = null;
-        instance.excluir(id);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        DAO dao = null;
+        
+        //O metodo nao deve aceitar valor 'null'(teste basico).
+        try
+        {
+            dao.excluir(id);
+            assertTrue(false);
+            System.err.println("\nErro: metodo aceitou valor 'null' como parametro");
+        }catch(NullPointerException e)
+        {
+            assertTrue(true);
+        }
+        
+        
+        //Esperado que o metodo nao aceite valores negativos como 'id'
+         try
+        {
+            id = -1l;
+            
+            dao.excluir(id);
+            assertTrue(false);
+            System.err.println("\nErro: metodo aceitando valor negativo de 'id'");
+        }catch(NullPointerException e)
+        {
+            assertTrue(true);
+        }
     }
 
-    /**
-     * Test of listarGenerico method, of class DAO.
-     */
-    @Ignore
-    @Test
-    public void testListarGenerico() {
-        System.out.println("listarGenerico");
-        String query = "";
+
+    @Test(timeout = 60000)
+    public void testListarGenerico() 
+    {
+        System.out.println("DAOTest: Method - listarGenerico()");
+        String query = null;
         Object[] params = null;
-        DAO instance = null;
+        DAO dao = null;
         List expResult = null;
-        List result = instance.listarGenerico(query, params);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        //Testar valores null nos parametros 'String query' e 'Object ... params'
+        try
+        {
+            params[0] = 1;
+            String a = "abcdef";
+            params[1] = a;
+            
+            dao.listarGenerico(query, params);
+            assertTrue(false);
+            System.err.println("\nErro: metodo aceitou o parametro String 'query' "
+                    + "com valor 'null'");
+        }catch(NullPointerException e)
+        {
+            assertTrue(true);
+        }
+        
+        try
+        {
+            /*nao eh esperado que o statement abaixo seja realizado, contudo
+            *foi colocado 'timeout = 60000(60sec)' visando forçar o termino
+            *deste teste, caso o mesmo demore demais.
+            */
+            query = "SELECT * FROM * WHERE COLUMN_NAME IN ('Empresa')";
+            
+            dao.listarGenerico(query, params);
+            assertTrue(false);
+            System.err.println("\nErro: metodo aceitou o parametro Object[] params "
+                    + "com valor 'null'");
+        }catch(NullPointerException e)
+        {
+            assertTrue(true);
+        }
+        
+        //Testar String vazia no parametro 'String query'
+         try
+        {
+            params[0] = 1;
+            String a = "abcdef";
+            params[1] = a;
+            query = "";
+            
+            dao.listarGenerico(query, params);
+            assertTrue(false);
+            System.err.println("\nErro: metodo aceitou o parametro String 'query' "
+                    + "com valor ''(String vazia)");
+        }catch(NullPointerException e)
+        {
+            assertTrue(true);
+        }
+        
     }
     
 }
