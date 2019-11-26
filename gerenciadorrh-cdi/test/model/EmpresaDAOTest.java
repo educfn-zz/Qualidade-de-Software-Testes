@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -39,24 +40,17 @@ public class EmpresaDAOTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of autenticar method, of class EmpresaDAO.
-     */
     @Test
     public void testAutenticar() throws Exception {
-        System.out.println("autenticar");
+         System.out.println("EmpresaDAOTest - Method: autenticar()");
         String cnpj = "";
         EmpresaDAO instance = new EmpresaDAO();
         boolean expResult = false;
         boolean result = instance.autenticar(cnpj);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of cadastraEmpresa method, of class EmpresaDAO.
-     */
+    @Ignore
     @Test
     public void testCadastraEmpresa() throws Exception {
         System.out.println("cadastraEmpresa");
@@ -69,9 +63,7 @@ public class EmpresaDAOTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of listar method, of class EmpresaDAO.
-     */
+    @Ignore
     @Test
     public void testListar() throws Exception {
         System.out.println("listar");
@@ -83,9 +75,7 @@ public class EmpresaDAOTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of getEmpresas method, of class EmpresaDAO.
-     */
+    @Ignore
     @Test
     public void testGetEmpresas() throws Exception {
         System.out.println("getEmpresas");
@@ -97,9 +87,7 @@ public class EmpresaDAOTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of isANumber method, of class EmpresaDAO.
-     */
+    @Ignore
     @Test
     public void testIsANumber() {
         System.out.println("isANumber");
@@ -112,9 +100,7 @@ public class EmpresaDAOTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of consultar method, of class EmpresaDAO.
-     */
+    @Ignore
     @Test
     public void testConsultar() throws Exception {
         System.out.println("consultar");
@@ -127,9 +113,7 @@ public class EmpresaDAOTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of consultarSuasEmpresas method, of class EmpresaDAO.
-     */
+    @Ignore
     @Test
     public void testConsultarSuasEmpresas() throws Exception {
         System.out.println("consultarSuasEmpresas");
@@ -142,9 +126,7 @@ public class EmpresaDAOTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of alterar method, of class EmpresaDAO.
-     */
+    @Ignore
     @Test
     public void testAlterar() throws Exception {
         System.out.println("alterar");
@@ -155,9 +137,7 @@ public class EmpresaDAOTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of excluir method, of class EmpresaDAO.
-     */
+    @Ignore
     @Test
     public void testExcluir() throws Exception {
         System.out.println("excluir");
