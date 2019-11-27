@@ -8,7 +8,9 @@ package beans;
 import java.util.List;
 import javax.faces.model.SelectItem;
 import model.Empresa;
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -23,32 +25,19 @@ public class EmpresaBeanTest {
     }
     
     @BeforeClass
-    public static void setUpClass() 
-    {
+    public static void setUpClass() {
     }
     
     @AfterClass
-    public static void tearDownClass() 
-    {
+    public static void tearDownClass() {
     }
-
-    /**
-     * Test of init method, of class EmpresaBean.
-     */
-    @Test
-    public void testInit() 
-    {
-        System.out.println("EmpresaBeanTest: method - init()");
-        EmpresaBean instance = new EmpresaBean();
-        try 
-        {
-            instance.init();    
-        } catch (Exception e) 
-        {
-            
-        }
-        
-        System.out.println("Classe");
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
     }
 
     /**
@@ -74,6 +63,33 @@ public class EmpresaBeanTest {
         Empresa empresa = null;
         EmpresaBean instance = new EmpresaBean();
         instance.setEmpresa(empresa);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getEmpresas method, of class EmpresaBean.
+     */
+    @Test
+    public void testGetEmpresas() {
+        System.out.println("getEmpresas");
+        EmpresaBean instance = new EmpresaBean();
+        List<Empresa> expResult = null;
+        List<Empresa> result = instance.getEmpresas();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setEmpresas method, of class EmpresaBean.
+     */
+    @Test
+    public void testSetEmpresas() {
+        System.out.println("setEmpresas");
+        List<Empresa> empresas = null;
+        EmpresaBean instance = new EmpresaBean();
+        instance.setEmpresas(empresas);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -106,14 +122,14 @@ public class EmpresaBeanTest {
     }
 
     /**
-     * Test of pag_cadastra method, of class EmpresaBean.
+     * Test of listar_empresas method, of class EmpresaBean.
      */
     @Test
-    public void testPag_cadastra() {
-        System.out.println("pag_cadastra");
+    public void testListar_empresas() throws Exception {
+        System.out.println("listar_empresas");
         EmpresaBean instance = new EmpresaBean();
-        String expResult = "";
-        String result = instance.pag_cadastra();
+        List<SelectItem> expResult = null;
+        List<SelectItem> result = instance.listar_empresas();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -129,49 +145,6 @@ public class EmpresaBeanTest {
         EmpresaBean instance = new EmpresaBean();
         String expResult = "";
         String result = instance.cadastrar(criador);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of alterar method, of class EmpresaBean.
-     */
-    @Test
-    public void testAlterar() throws Exception {
-        System.out.println("alterar");
-        EmpresaBean instance = new EmpresaBean();
-        String expResult = "";
-        String result = instance.alterar();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of listar_empresas method, of class EmpresaBean.
-     */
-    @Test
-    public void testListar_empresas() throws Exception {
-        System.out.println("listar_empresas");
-        EmpresaBean instance = new EmpresaBean();
-        List<SelectItem> expResult = null;
-        List<SelectItem> result = instance.listar_empresas();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isANumber method, of class EmpresaBean.
-     */
-    @Test
-    public void testIsANumber() {
-        System.out.println("isANumber");
-        String strNum = "";
-        EmpresaBean instance = new EmpresaBean();
-        boolean expResult = false;
-        boolean result = instance.isANumber(strNum);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -201,6 +174,20 @@ public class EmpresaBeanTest {
         EmpresaBean instance = new EmpresaBean();
         String expResult = "";
         String result = instance.pag_view(_empresa);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of pag_cadastra method, of class EmpresaBean.
+     */
+    @Test
+    public void testPag_cadastra() {
+        System.out.println("pag_cadastra");
+        EmpresaBean instance = new EmpresaBean();
+        String expResult = "";
+        String result = instance.pag_cadastra();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -243,6 +230,20 @@ public class EmpresaBeanTest {
         EmpresaBean instance = new EmpresaBean();
         String expResult = "";
         String result = instance.retornar(choose);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of alterar method, of class EmpresaBean.
+     */
+    @Test
+    public void testAlterar() throws Exception {
+        System.out.println("alterar");
+        EmpresaBean instance = new EmpresaBean();
+        String expResult = "";
+        String result = instance.alterar();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

@@ -1,0 +1,74 @@
+//usar as querys abaixo para proceder com os testes de comunicacao.
+
+CREATE DATABASE gerenciamentorh;
+
+USE gerenciamentorh;
+
+CREATE TABLE usuarios(
+	id INT(20) NOT NULL AUTO_INCREMENT,
+	rg VARCHAR(10) NOT NULL,
+	nome VARCHAR(60) NOT NULL,
+	cargo VARCHAR(20) NOT NULL,
+	login VARCHAR(20) NOT NULL,
+	senha VARCHAR(255) NOT NULL,
+	tipo VARCHAR(10) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE empresas (
+	id_empresa INT(20) NOT NULL AUTO_INCREMENT,
+	cnpj VARCHAR(15) NOT NULL,
+	razao_social VARCHAR(60) NOT NULL,
+	nome_fantasia VARCHAR(60) NOT NULL,
+	cep VARCHAR(8) NOT NULL,
+	endereco VARCHAR(60) NOT NULL,
+	endereco_numero VARCHAR(10) NOT NULL,
+	endereco_complemento VARCHAR(10),
+	bairro VARCHAR(20) NOT NULL,
+	cidade VARCHAR(30) NOT NULL,
+	estado VARCHAR(30) NOT NULL,
+	telefone VARCHAR(11) NOT NULL,
+	proprietario VARCHAR(60) NOT NULL,
+	email VARCHAR(60) NOT NULL,
+	id_criador INT(20) NOT NULL,
+	PRIMARY KEY (id_empresa),
+	FOREIGN KEY (id_criador) REFERENCES usuarios(id)
+);
+
+CREATE TABLE funcionarios (
+	matricula INT(20) NOT NULL,
+	nome VARCHAR(20) NOT NULL,
+	sobrenome VARCHAR(60) NOT NULL,
+	sexo VARCHAR(1) NOT NULL,
+	rg VARCHAR(10) NOT NULL,
+	cpf VARCHAR(12) NOT NULL,
+	nome_pai VARCHAR(60) NOT NULL,
+	nome_mae VARCHAR(60) NOT NULL,
+	nascimento DATE NOT NULL,
+	estado_civil VARCHAR(12) NOT NULL,
+	nacionalidade VARCHAR(20) NOT NULL,
+	grau_instrucao VARCHAR(30) NOT NULL,
+	raca VARCHAR(12) NOT NULL,
+	cep VARCHAR(8) NOT NULL,
+	endereco VARCHAR(60) NOT NULL,
+	endereco_numero VARCHAR(10) NOT NULL,
+	endereco_complemento VARCHAR(10),
+	bairro VARCHAR(20) NOT NULL,
+	cidade VARCHAR(30) NOT NULL,
+	estado VARCHAR(30) NOT NULL,
+	telefone_celular VARCHAR(11),
+	telefone_fixo VARCHAR(10),
+	email VARCHAR(60) NOT NULL,
+	cargo VARCHAR(20) NOT NULL,
+	data_contratacao DATE NOT NULL,
+	tipo_contratacao VARCHAR(10) NOT NULL,
+	periodo_atuacao VARCHAR(12) NOT NULL,
+        id_empresa INT(20) NOT NULL,
+	id_criador INT(20) NOT NULL,
+	PRIMARY KEY (matricula),
+        FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa),
+	FOREIGN KEY (id_criador) REFERENCES usuarios(id)
+);
+
+INSERT INTO usuarios(rg, nome, cargo, login, senha, tipo) VALUES ('52008374', 'Fulano de Tal', 'Administrador', 'admin', MD5('102030'), 'ADMIN');
+INSERT INTO usuarios(rg, nome, cargo, login, senha, tipo) VALUES ('41254757', 'Outro Fulano', 'Recursos Humanos', 'tsantos', MD5('102030'), 'ADMIN');

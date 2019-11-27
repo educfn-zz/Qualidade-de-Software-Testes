@@ -40,6 +40,7 @@ public class EmpresaDAOTest {
     public void tearDown() {
     }
 
+    @Ignore
     @Test
     public void testAutenticar() throws Exception {
          System.out.println("EmpresaDAOTest - Method: autenticar()");

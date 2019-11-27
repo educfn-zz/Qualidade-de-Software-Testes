@@ -1,62 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package gerenciamentorh.model.entity;
+package model;
 
+import java.io.Serializable;
 import javax.enterprise.context.Dependent;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 
-/**
- *
- * @author Thiago Henrique Santos
- */
 @Dependent
-@Entity
-@Table(name = "Empresa")
-@NamedQueries({
-    @NamedQuery(name = "Empresa.listarTodas", query = "SELECT * FROM empresas"),
-    @NamedQuery(name = "Empresa.listarPorRazaoSocial", query = "SELECT e FROM Empresa e WHERE e.razao_social LIKE ?1"),
-    @NamedQuery(name = "Empresa.listarPorCNPJ", query = "SELECT e FROM Empresa e WHERE e.cnpj LIKE ?1"),
-    @NamedQuery(name = "Empresa.listarSuasEmpresas", query = "SELECT * FROM empresas WHERE id_criador = ?")    
-})
-public class Empresa extends AbstractEntity {
-
-    @Column(length = 15)
+public class Empresa implements Serializable{
+    
+    private int id_empresa;
     private String cnpj;
-    @Column(length = 60)
     private String nome_fantasia;
-    @Column(length = 60)
     private String razao_social;
-    @Column(length = 8)
     private String cep;
-    @Column(length = 60)
     private String endereco;
-    @Column(length = 10)
     private String endereco_numero;
-    @Column(length = 10)
     private String endereco_complemento;
-    @Column(length = 20)
     private String bairro;
-    @Column(length = 30)
     private String cidade;
-    @Column(length = 30)
     private String estado;
-    @Column(length = 11)
     private String telefone;
-    @Column(length = 60)
     private String proprietario;
-    @Column(length = 60)
     private String email;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Usuario usuario;
+    private int id_criador;
+    
+    public Empresa() {
+        
+    }
+    
+    public Empresa(int _id_empresa, String _razao_social) {
+        this.id_empresa = _id_empresa;
+        this.razao_social = _razao_social;
+    }
+    
+    public int getId_empresa() {
+        return id_empresa;
+    }
+
+    public void setId_empresa(int id) {
+        this.id_empresa = id;
+    }
 
     public String getCnpj() {
         return cnpj;
@@ -66,20 +47,20 @@ public class Empresa extends AbstractEntity {
         this.cnpj = cnpj;
     }
 
-    public String getNome_fantasia() {
-        return nome_fantasia;
-    }
-
-    public void setNome_fantasia(String nome_fantasia) {
-        this.nome_fantasia = nome_fantasia;
-    }
-
     public String getRazao_social() {
         return razao_social;
     }
 
     public void setRazao_social(String razao_social) {
         this.razao_social = razao_social;
+    }
+
+    public String getNome_fantasia() {
+        return nome_fantasia;
+    }
+
+    public void setNome_fantasia(String nome_fantasia) {
+        this.nome_fantasia = nome_fantasia;
     }
 
     public String getCep() {
@@ -162,17 +143,11 @@ public class Empresa extends AbstractEntity {
         this.email = email;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public int getId_criador() {
+        return id_criador;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    @Override
-    public String toString() {
-        return "gerenciadorrh.model.entity.Empresa[ id=]";
-    }
-    
+    public void setId_criador(int id_criador) {
+        this.id_criador = id_criador;
+    }  
 }
