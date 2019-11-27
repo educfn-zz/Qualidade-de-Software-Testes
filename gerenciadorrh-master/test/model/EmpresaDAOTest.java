@@ -1,11 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Eh necessario ter um MySQL ativo e conectado a sua IDE para realizar estes testes.
  */
 package model;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.model.SelectItem;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -21,15 +22,21 @@ import org.junit.Ignore;
  */
 public class EmpresaDAOTest {
     
+    Empresa empresa;
+    
     public EmpresaDAOTest() {
     }
     
     @BeforeClass
-    public static void setUpClass() {
+    public static void setUpClass()
+    {
+              
     }
     
     @AfterClass
-    public static void tearDownClass() {
+    public static void tearDownClass() 
+    {
+
     }
     
     @Before
@@ -40,28 +47,13 @@ public class EmpresaDAOTest {
     public void tearDown() {
     }
 
-    @Ignore
-    @Test
-    public void testAutenticar() throws Exception {
-        System.out.println("autenticar");
-        String cnpj = "";
-        EmpresaDAO instance = new EmpresaDAO();
-        boolean expResult = false;
-        boolean result = instance.autenticar(cnpj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testCadastraEmpresa() throws Exception {
-        System.out.println("EmpresaDAOTest: cadastraEmpresa()");
-        
-        Empresa empresa = new Empresa(2, "razao_empresa_sa");
+    public void criador()
+    {
+        empresa = new Empresa(2, "razao_empresa_sa");
         empresa.setBairro("Bairro_qualquer");
         empresa.setCep("11000");
         empresa.setCidade("Cidade");
-        empresa.setCnpj("0.000.000");
+        empresa.setCnpj("000.000.000-12");
         empresa.setEmail("email@mail.com");
         empresa.setEndereco("Endereco");
         empresa.setEndereco_complemento("endereco");
@@ -70,9 +62,43 @@ public class EmpresaDAOTest {
         empresa.setNome_fantasia("Nome_Fantasia");
         empresa.setProprietario("Proprietario");
         empresa.setTelefone("0000-0000");
-        empresa.setId_criador(2);
+        empresa.setId_criador(1);
+    }
+    
+    //Teste ignorado devido a nao ser possivel a este metodo encontrar 'cnpj's
+    //fora do funcionamento normal da aplicacao.
+    @Ignore
+    @Test
+    public void testAutenticar() throws Exception {
+        System.out.println("EmpresaDAOTest: autenticar()");     
+        EmpresaDAO instance = new EmpresaDAO(); 
+        criador();
         
+        try 
+        {
+          instance.cadastraEmpresa(empresa);
+        } catch (Exception e) 
+        {
+            System.err.println("Erro: problema no cadastramento da empresa!");
+        }
+       
+        
+        boolean expResult = true;
+        String cnpj = empresa.getCnpj();
+        System.out.println("\ncnpj: " + cnpj + "\n");
+        boolean result = instance.autenticar(cnpj);
+        assertEquals(expResult, result);
+        
+        instance.excluir(empresa.getCnpj());
+    }
+
+
+    @Test
+    public void testCadastraEmpresa() throws Exception {
+        System.out.println("EmpresaDAOTest: cadastraEmpresa()");
         EmpresaDAO instance = new EmpresaDAO();
+        criador();
+        
         instance.excluir(empresa.getCnpj());
         Boolean result = instance.cadastraEmpresa(empresa);
         Boolean expectedResult = true;
@@ -81,19 +107,21 @@ public class EmpresaDAOTest {
     
     }
 
-    @Ignore
     @Test
     public void testListar() throws Exception {
-        System.out.println("listar");
+        System.out.println("EmpresaDAOText: listar()");
         EmpresaDAO instance = new EmpresaDAO();
-        List<Empresa> expResult = null;
+        
+        criador();
+        
+        instance.cadastraEmpresa(empresa);
+        
         List<Empresa> result = instance.listar();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(result != null);
+        
+         instance.excluir(empresa.getCnpj());
     }
 
-    @Ignore
     @Test
     public void testGetEmpresas() throws Exception {
         System.out.println("getEmpresas");
@@ -101,8 +129,6 @@ public class EmpresaDAOTest {
         List<SelectItem> expResult = null;
         List<SelectItem> result = instance.getEmpresas();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     @Ignore
