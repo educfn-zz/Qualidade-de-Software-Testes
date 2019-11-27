@@ -119,77 +119,139 @@ public class EmpresaDAOTest {
         List<Empresa> result = instance.listar();
         assertTrue(result != null);
         
-         instance.excluir(empresa.getCnpj());
+        instance.excluir(empresa.getCnpj());
     }
 
     @Test
-    public void testGetEmpresas() throws Exception {
-        System.out.println("getEmpresas");
+    public void testGetEmpresas() throws Exception 
+    {
+        System.out.println("EmpresaDAOTest: getEmpresas()");
         EmpresaDAO instance = new EmpresaDAO();
-        List<SelectItem> expResult = null;
-        List<SelectItem> result = instance.getEmpresas();
-        assertEquals(expResult, result);
+        List<SelectItem> result = null;
+        
+        criador();
+        instance.cadastraEmpresa(empresa);
+        
+        result = instance.getEmpresas();
+        assertTrue(result != null);
+        
+        instance.excluir(empresa.getCnpj());
     }
 
-    @Ignore
     @Test
-    public void testIsANumber() {
-        System.out.println("isANumber");
-        String strNum = "";
+    public void testIsANumber() 
+    {
+        System.out.println("EmpresaDAOTest: isANumber()");
         EmpresaDAO instance = new EmpresaDAO();
-        boolean expResult = false;
-        boolean result = instance.isANumber(strNum);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        assertTrue(instance.isANumber("1"));
+        assertTrue(instance.isANumber("123456789"));
+        assertTrue(instance.isANumber("102030"));
+        
+        assertFalse(instance.isANumber("palavra")); 
+        assertFalse(instance.isANumber("12palavra"));
+        assertFalse(instance.isANumber(" 102030 "));
+        
     }
 
-    @Ignore
     @Test
     public void testConsultar() throws Exception {
-        System.out.println("consultar");
-        String _conteudo_busca = "";
+        System.out.println("EmpresaDAOTest: consultar()");
         EmpresaDAO instance = new EmpresaDAO();
-        List<Empresa> expResult = null;
+        criador();
+        
+        
+        String _conteudo_busca = "razao social";
         List<Empresa> result = instance.consultar(_conteudo_busca);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(result != null);
+        
+        instance.excluir(empresa.getCnpj());
     }
 
-    @Ignore
+
     @Test
     public void testConsultarSuasEmpresas() throws Exception {
-        System.out.println("consultarSuasEmpresas");
-        int _conteudo_busca = 0;
+        System.out.println("EmpresaDAOTest: consultarSuasEmpresas()");
         EmpresaDAO instance = new EmpresaDAO();
-        List<Empresa> expResult = null;
+        
+        criador();
+        instance.cadastraEmpresa(empresa);
+        
+        
+        int _conteudo_busca = 1;
         List<Empresa> result = instance.consultarSuasEmpresas(_conteudo_busca);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(result != null);
+        
+        instance.excluir(empresa.getCnpj());
     }
 
     @Ignore
     @Test
-    public void testAlterar() throws Exception {
-        System.out.println("alterar");
-        Empresa empresa = null;
+    public void testAlterar() throws Exception 
+    {
+        System.out.println("EmpresaDAOTest: alterar()");
         EmpresaDAO instance = new EmpresaDAO();
-        instance.alterar(empresa);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        criador();
+        
+        Empresa original;
+        Empresa alterada;
+        
+        original = new Empresa(6, empresa.getRazao_social());
+        original.setBairro(empresa.getBairro());
+        original.setCep(empresa.getCep());
+        original.setCidade(empresa.getCidade());
+        original.setCnpj(empresa.getCnpj());
+        original.setEmail(empresa.getEmail());
+        original.setEndereco(empresa.getEndereco());
+        original.setEndereco_complemento(empresa.getEndereco_complemento());
+        original.setEndereco_numero(empresa.getEndereco_numero());
+        original.setEstado(empresa.getEstado());
+        original.setNome_fantasia(empresa.getNome_fantasia());
+        original.setProprietario(empresa.getProprietario());
+        original.setTelefone(empresa.getTelefone());
+        original.setId_criador(empresa.getId_criador());
+        
+            
+        instance.cadastraEmpresa(original);
+        
+        List<Empresa> empresas = instance.listar();
+        int i = empresas.indexOf(original);
+
+        System.out.println("\nNumero: " + i);
+        //assertTrue(empresas.isEmpty());
+                //empresas.contains(empresa));
+        
+        //alterada = original;
+        original.setCidade("Cidade2");
+        
+        instance.alterar(original);
+        
+        //assertTrue(empresas.contains(alterada));
+        
+        //instance.excluir(alterada.getCnpj());
     }
 
-    @Ignore
     @Test
     public void testExcluir() throws Exception {
-        System.out.println("excluir");
-        String cnpj = "";
+        System.out.println("EmpresaDAOTest: excluir()");
         EmpresaDAO instance = new EmpresaDAO();
-        instance.excluir(cnpj);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        criador();
+        //garantido que a empresa com esse CNPJ não está no Banco de Dados.
+        instance.excluir(empresa.getCnpj());
+        
+        //Recebera true se a empresa nao tiver sido cadastrada antes e foi 
+        //cadastrada com sucesso.
+        assertTrue(instance.cadastraEmpresa(empresa));
+        
+        instance.excluir(empresa.getCnpj());
+        
+        //Caso o 'true' se repita eh porque o metodo 'excluiu' com sucesso o 
+        //mesmo anteriormente.
+        assertTrue(instance.cadastraEmpresa(empresa));
+        
+        //Limpando para evitar que esta empresa 'Teste' permaneca no Banco de
+        //Dados.
+        instance.excluir(empresa.getCnpj());
     }
     
 }
