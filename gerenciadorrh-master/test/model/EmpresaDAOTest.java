@@ -43,25 +43,42 @@ public class EmpresaDAOTest {
     @Ignore
     @Test
     public void testAutenticar() throws Exception {
-         System.out.println("EmpresaDAOTest - Method: autenticar()");
+        System.out.println("autenticar");
         String cnpj = "";
         EmpresaDAO instance = new EmpresaDAO();
         boolean expResult = false;
         boolean result = instance.autenticar(cnpj);
         assertEquals(expResult, result);
-    }
-
-    @Ignore
-    @Test
-    public void testCadastraEmpresa() throws Exception {
-        System.out.println("cadastraEmpresa");
-        Empresa _empresa = null;
-        EmpresaDAO instance = new EmpresaDAO();
-        boolean expResult = false;
-        boolean result = instance.cadastraEmpresa(_empresa);
-        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testCadastraEmpresa() throws Exception {
+        System.out.println("EmpresaDAOTest: cadastraEmpresa()");
+        
+        Empresa empresa = new Empresa(2, "razao_empresa_sa");
+        empresa.setBairro("Bairro_qualquer");
+        empresa.setCep("11000");
+        empresa.setCidade("Cidade");
+        empresa.setCnpj("0.000.000");
+        empresa.setEmail("email@mail.com");
+        empresa.setEndereco("Endereco");
+        empresa.setEndereco_complemento("endereco");
+        empresa.setEndereco_numero("000");
+        empresa.setEstado("Estado");
+        empresa.setNome_fantasia("Nome_Fantasia");
+        empresa.setProprietario("Proprietario");
+        empresa.setTelefone("0000-0000");
+        empresa.setId_criador(2);
+        
+        EmpresaDAO instance = new EmpresaDAO();
+        instance.excluir(empresa.getCnpj());
+        Boolean result = instance.cadastraEmpresa(empresa);
+        Boolean expectedResult = true;
+        assertEquals(expectedResult, result);
+        instance.excluir(empresa.getCnpj());
+    
     }
 
     @Ignore
